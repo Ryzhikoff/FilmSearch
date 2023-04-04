@@ -8,4 +8,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="button_color">#EF5C5C</color>
+
+    <color name="newTheme_Primary">#0C81B6</color>
+    <color name="newTheme_PrimaryVariant">#013A53</color>
+    <color name="newTheme_OnPrimary">#B4E1F6</color>
+
+    <color name="darkTheme_Primary">#006B9C</color>
+    <color name="darkTheme_PrimaryVariant">#577583</color>
+    <color name="darkTheme_OnPrimary">#000000</color>
+
+    <color name="icon_color_toolbar">@color/black</color>
+    <color name="icon_color_toolbar_night">@color/white</color>
+
+
 </resources>

@@ -4,132 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/BackgroundMainMenu"
     tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Theme_Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/menu_toolbar"
+            app:navigationIcon="@drawable/icon_menu"
+            app:title="@string/main_menu_title" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/top_menu"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="5dp"
-        app:cardCornerRadius="15dp"
         android:elevation="5dp"
-        app:layout_constraintTop_toTopOf="parent">
+        app:cardCornerRadius="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_layout"
+        tools:layout_editor_absoluteX="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@drawable/poster_1" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/poster_1" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@drawable/poster_2" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/poster_2" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@drawable/poster_3" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/poster_3" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@drawable/poster_4" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/poster_4" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@drawable/poster_5" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/poster_5" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/main_menu_button_link_posters"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:autoLink="web"
         android:linksClickable="true"
+        android:text="@string/main_menu_button_link_posters"
         android:textStyle="italic"
-        app:layout_constraintTop_toBottomOf="@+id/top_menu" />
-
-    <LinearLayout
-        android:id="@+id/main_menu_buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/main_menu_background"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_menu"
+        android:textSize="@dimen/size_link_poster_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_menu">
-
-        <Button
-            android:id="@+id/button_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?selectableItemBackgroundBorderless"
-            android:textColor="@color/button_color"
-            android:text="@string/main_menu_button_menu" />
-
-        <Button
-            android:id="@+id/button_wounded"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?selectableItemBackgroundBorderless"
-            android:textColor="@color/button_color"
-            android:text="@string/main_menu_button_wounded" />
-
-        <Button
-            android:id="@+id/button_watch_later"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?selectableItemBackgroundBorderless"
-            android:textColor="@color/button_color"
-            android:text="@string/main_menu_button_watch_later" />
-
-        <Button
-            android:id="@+id/button_selection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?selectableItemBackgroundBorderless"
-            android:textColor="@color/button_color"
-            android:text="@string/main_menu_button_selection" />
-
-        <Button
-            android:id="@+id/button_setting"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?selectableItemBackgroundBorderless"
-            android:textColor="@color/button_color"
-            android:text="@string/main_menu_button_setting" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/top_menu" />
 
 
-    <FrameLayout
-        android:id="@+id/bottom_menu"
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="#E69011"
+        android:layout_height="wrap_content"
+        style="@style/Theme_Bottomnavigation"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:menu="@menu/menu_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
