@@ -1,10 +1,10 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.FilmSearch" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/darkTheme_Primary</item>
-        <item name="colorPrimaryVariant">@color/darkTheme_PrimaryVariant</item>
-        <item name="colorOnPrimary">@color/darkTheme_OnPrimary</item>
+        <item name="colorPrimary">@color/dark_theme_primary</item>
+        <item name="colorPrimaryVariant">@color/dark_theme_primary_variant</item>
+        <item name="colorOnPrimary">@color/dark_theme_on_primary</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/black</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
@@ -13,7 +13,7 @@
         <item name="android:statusBarColor">@color/black</item>
     </style>
 
-    <style name="Theme_Toolbar">
+    <style name="ThemeToolbar">
         <item name="android:background">@color/black</item>
         <item name="titleTextColor">@color/white</item>
         <item name="navigationIconTint">@color/white</item>
@@ -25,7 +25,7 @@
         <item name="android:background">@drawable/main_menu_background_night</item>
     </style>
 
-    <style name="Theme_Bottomnavigation">
+    <style name="ThemeBottomNavigation">
         <item name="android:background">@color/black</item>
         <item name="itemTextColor">@color/white</item>
         <item name="itemIconTint">@color/white</item>

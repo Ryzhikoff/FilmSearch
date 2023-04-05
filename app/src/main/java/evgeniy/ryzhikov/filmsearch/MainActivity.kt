@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bnMainMenu)
         bottomNavigation.setOnItemReselectedListener {
             when (it.itemId) {
                 R.id.favorite -> createToast(getString(R.string.main_menu_button_wounded))
