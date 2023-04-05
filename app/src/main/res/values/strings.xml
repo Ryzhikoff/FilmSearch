@@ -6,6 +6,7 @@
     <string name="main_menu_button_watch_later">Смотреть позже</string>
     <string name="main_menu_button_selection">Подборки</string>
     <string name="main_menu_button_setting">Настройки</string>
-    <string name="main_menu_button_link_posters">Постеры предоставлены: https://akspic.ru/</string>
+    <string name="main_menu_link_posters">Постеры предоставлены: https://akspic.ru/</string>
+    <string name="main_menu_title">Открой мир кино!</string>
 
 </resources>

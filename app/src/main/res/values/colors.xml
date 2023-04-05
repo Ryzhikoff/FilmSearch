@@ -8,4 +8,23 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="button_color">#EF5C5C</color>
+
+    <color name="new_theme_primary">#0C81B6</color>
+    <color name="new_theme_primary_variant">#013A53</color>
+    <color name="new_theme_on_primary">#B4E1F6</color>
+
+    <color name="dark_theme_primary">#006B9C</color>
+    <color name="dark_theme_primary_variant">#577583</color>
+    <color name="dark_theme_on_primary">@color/black</color>
+
+    <color name="icon_color_toolbar">@color/black</color>
+    <color name="icon_color_toolbar_night">@color/white</color>
+
+    <color name="start_color_background_day">#15B1F8</color>
+    <color name="end_color_background_day">@color/white</color>
+
+    <color name="start_color_background_night">@color/black</color>
+    <color name="end_color_background_night">@color/white</color>
+
+
 </resources>
