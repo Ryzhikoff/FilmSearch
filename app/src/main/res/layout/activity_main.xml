@@ -30,7 +30,7 @@
         android:layout_height="100dp"
         android:layout_margin="5dp"
         android:elevation="5dp"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="@dimen/radius_for_card_view"
         app:layout_constraintTop_toBottomOf="@+id/appbarMainMenu"
         tools:layout_editor_absoluteX="5dp">
 
@@ -95,7 +95,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvMainMenu" />
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_recycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/rv_margin"
+        tools:listitem="@layout/film_item"
+        app:layout_constraintTop_toBottomOf="@+id/tvLinkPoster"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
