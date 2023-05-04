@@ -4,13 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".DetailsActivity">
+    tools:context=".fragments.DetailsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:fitsSystemWindows="false"
+
+        android:fitsSystemWindows="true"
+
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -48,9 +50,9 @@
         android:id="@+id/details_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/film_details_fab_margin"
         android:backgroundTint="@color/white"
-        app:layout_anchor="@id/app_bar"
+        app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|right"
         app:srcCompat="@drawable/ic_baseline_share_24"
         android:tint="@android:color/white"/>
@@ -64,7 +66,16 @@
             android:id="@+id/detailsDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+
+            android:layout_margin="@dimen/film_details_description_margin"
+            android:fontFamily="sans-serif-smallcaps"
+            android:shadowColor="@color/white"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            style="@style/FontFilmDescription"
             tools:text="@tools:sample/lorem/random" />
 
     </androidx.core.widget.NestedScrollView>
