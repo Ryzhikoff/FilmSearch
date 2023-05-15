@@ -6,6 +6,7 @@ import androidx.activity.OnBackPressedCallback
 import com.google.android.material.snackbar.Snackbar
 import evgeniy.ryzhikov.filmsearch.databinding.ActivityMainBinding
 import evgeniy.ryzhikov.filmsearch.fragments.DetailsFragment
+import evgeniy.ryzhikov.filmsearch.fragments.FavoritesFragment
 import evgeniy.ryzhikov.filmsearch.fragments.HomeFragment
 import evgeniy.ryzhikov.filmsearch.recycler_view.Film
 
@@ -35,7 +36,14 @@ class MainActivity : AppCompatActivity() {
         //setOnItemReselectedListener
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.favorite -> makeSnakebar(getString(R.string.main_menu_button_wounded))
+                R.id.favorite -> {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragmentPlaceholder, FavoritesFragment())
+                        .addToBackStack(null)
+                        .commit()
+                    true
+                }
                 R.id.watch_later -> makeSnakebar(getString(R.string.main_menu_button_watch_later))
                 R.id.selections -> makeSnakebar(getString(R.string.main_menu_button_selection))
                 else -> return@setOnItemSelectedListener false

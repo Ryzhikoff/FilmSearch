@@ -14,4 +14,5 @@
     <dimen name="rv_margin">@dimen/posters_margin</dimen>
     <dimen name="film_details_description_margin">8dp</dimen>
     <dimen name="film_details_fab_margin">16dp</dimen>
+    <dimen name="details_margin_fab_favorites">16dp</dimen>
 </resources>
