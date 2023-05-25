@@ -16,6 +16,7 @@
 
     <color name="start_color_background_night">@color/black</color>
     <color name="end_color_background_night">@color/white</color>
+    <color name="color_invisible">#00000000</color>
 
 
 </resources>
