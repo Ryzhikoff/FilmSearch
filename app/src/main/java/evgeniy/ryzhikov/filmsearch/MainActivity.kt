@@ -27,13 +27,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initNavigation() {
-        binding.topAppBar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.settings -> makeSnakebar(getString(R.string.main_menu_button_setting))
-                else -> false
-            }
-        }
-        //setOnItemReselectedListener
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.favorite -> {
@@ -52,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun makeSnakebar(message: String): Boolean {
-        Snackbar.make(binding.topAppBar, message, Snackbar.LENGTH_SHORT)
+        Snackbar.make(binding.bottomNavigation, message, Snackbar.LENGTH_SHORT)
             .setAnchorView(binding.bottomNavigation)
             .show()
         return true

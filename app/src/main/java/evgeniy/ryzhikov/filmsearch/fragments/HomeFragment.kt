@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import evgeniy.ryzhikov.filmsearch.MainActivity
 import evgeniy.ryzhikov.filmsearch.R
@@ -12,6 +13,7 @@ import evgeniy.ryzhikov.filmsearch.databinding.FragmentHomeBinding
 import evgeniy.ryzhikov.filmsearch.recycler_view.Film
 import evgeniy.ryzhikov.filmsearch.recycler_view.FilmListRecyclerAdapter
 import evgeniy.ryzhikov.filmsearch.recycler_view.TopSpacingItemDecoration
+import java.util.*
 
 class HomeFragment : Fragment() {
     private lateinit var filmsDataBase : List<Film>
@@ -30,6 +32,35 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.bind(view)
         createFilmBase()
         initRV()
+        initSearch()
+    }
+
+    private fun initSearch() {
+        binding.searchView.setOnClickListener {
+            binding.searchView.isIconified = false
+        }
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                //Если ввод пуст то вставляем в адаптер всю БД
+                if (newText!!.isEmpty()) {
+                    filmsAdapter.addItems(filmsDataBase)
+                    return true
+                }
+                //Фильтруем список на поискк подходящих сочетаний
+                val result = filmsDataBase.filter {
+                    //Чтобы все работало правильно, нужно и запрос, и имя фильма приводить к нижнему регистру
+                    it.title.lowercase(Locale.getDefault()).contains(newText.lowercase(Locale.getDefault()))
+                }
+                //Добавляем в адаптер
+                filmsAdapter.addItems(result)
+                return true
+            }
+        })
     }
 
     private fun initRV() {
