@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/home"
+        android:icon="@drawable/icon_home"
+        android:title="@string/main_menu_button_home"
+        app:showAsAction="withText"/>
+    <item
         android:id="@+id/favorite"
         android:icon="@drawable/icon_favorite"
         android:title="@string/main_menu_button_wounded"

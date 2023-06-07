@@ -1,11 +1,6 @@
 package evgeniy.ryzhikov.filmsearch.fragments
 
 import android.os.Bundle
-import android.transition.Scene
-import android.transition.Slide
-import android.transition.TransitionManager
-import android.transition.TransitionSet
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import evgeniy.ryzhikov.filmsearch.MainActivity
 import evgeniy.ryzhikov.filmsearch.R
 import evgeniy.ryzhikov.filmsearch.databinding.FragmentHomeBinding
-import evgeniy.ryzhikov.filmsearch.databinding.MergeHomeScreenContentBinding
 import evgeniy.ryzhikov.filmsearch.recycler_view.Film
 import evgeniy.ryzhikov.filmsearch.recycler_view.FilmListRecyclerAdapter
 import evgeniy.ryzhikov.filmsearch.recycler_view.TopSpacingItemDecoration
+import evgeniy.ryzhikov.filmsearch.utils.AnimationHelper
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -27,33 +22,30 @@ class HomeFragment : Fragment() {
 
     private var _homeFragmentBinding: FragmentHomeBinding? = null
     private val homeFragmentBinding get() = _homeFragmentBinding!!
-    private var _mergeHomeScreeContentBinding: MergeHomeScreenContentBinding? = null
-    private val mergeHomeScreeContentBinding get() = _mergeHomeScreeContentBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _homeFragmentBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        _mergeHomeScreeContentBinding =
-            MergeHomeScreenContentBinding.inflate(layoutInflater, homeFragmentBinding.homeFragmentRoot, false)
         return homeFragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setTransition()
         super.onViewCreated(view, savedInstanceState)
         createFilmBase()
         initRV()
         initSearch()
+
+        AnimationHelper.performFragmentCircularRevealAnimation(homeFragmentBinding.root, requireActivity(), 1)
     }
 
     private fun initSearch() {
-        mergeHomeScreeContentBinding.searchView.setOnClickListener {
-            mergeHomeScreeContentBinding.searchView.isIconified = false
+        homeFragmentBinding.searchView.setOnClickListener {
+            homeFragmentBinding.searchView.isIconified = false
         }
 
-        mergeHomeScreeContentBinding.searchView.setOnQueryTextListener(object :
+        homeFragmentBinding.searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -80,7 +72,7 @@ class HomeFragment : Fragment() {
 
     private fun initRV() {
         //находим наш RV
-        mergeHomeScreeContentBinding.mainRecycler.apply {
+        homeFragmentBinding.mainRecycler.apply {
             //Инициализируем наш адаптер в конструктор передаем анонимно инициализированный интерфейс
             filmsAdapter =
                 FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
@@ -158,30 +150,8 @@ class HomeFragment : Fragment() {
         )
     }
 
-    private fun setTransition() {
-        val scene = Scene(
-            homeFragmentBinding.homeFragmentRoot,
-            mergeHomeScreeContentBinding.root,
-        )
-        //Создаем анимацию выезда поля поиска сверху
-        val searchSlide = Slide(Gravity.TOP).addTarget(R.id.searchView)
-        //Создаем анимацию выезда RV снизу
-        val recyclerSlide = Slide(Gravity.BOTTOM).addTarget(R.id.mainRecycler)
-        //Создаем экземпляр TransitionSet, который объединит все наши анимации
-        val customTransition = TransitionSet().apply {
-            //Устанавливаем время, за которое будет проходить анимация
-            duration = 500
-            //Добавляем сами анимации
-            addTransition(recyclerSlide)
-            addTransition(searchSlide)
-        }
-        //Также запускаем через TransitionManager, но вторым параметром передаем нашу кастомную анимацию
-        TransitionManager.go(scene, customTransition)
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
-        _mergeHomeScreeContentBinding = null
         _homeFragmentBinding = null
     }
 }

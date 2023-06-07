@@ -3,11 +3,14 @@ package evgeniy.ryzhikov.filmsearch
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import evgeniy.ryzhikov.filmsearch.databinding.ActivityMainBinding
 import evgeniy.ryzhikov.filmsearch.fragments.DetailsFragment
 import evgeniy.ryzhikov.filmsearch.fragments.FavoritesFragment
 import evgeniy.ryzhikov.filmsearch.fragments.HomeFragment
+import evgeniy.ryzhikov.filmsearch.fragments.SelectionsFragment
+import evgeniy.ryzhikov.filmsearch.fragments.WatchLaterFragment
 import evgeniy.ryzhikov.filmsearch.recycler_view.Film
 
 class MainActivity : AppCompatActivity() {
@@ -29,16 +32,36 @@ class MainActivity : AppCompatActivity() {
     private fun initNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.favorite -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragmentPlaceholder, FavoritesFragment())
-                        .addToBackStack(null)
-                        .commit()
+                R.id.home -> {
+                    val tag = "home"
+                    val fragment = checkFragmentExistence(tag)
+                    //В первом параметре, если фрагмент не найден и метод вернул null, то с помощью
+                    //элвиса мы вызываем создание нового фрагмента
+                    changeFragment(fragment ?: HomeFragment(), tag)
                     true
                 }
-                R.id.watch_later -> makeSnakebar(getString(R.string.main_menu_button_watch_later))
-                R.id.selections -> makeSnakebar(getString(R.string.main_menu_button_selection))
+
+                R.id.favorite -> {
+                    val tag = "favorites"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment(fragment ?: FavoritesFragment(), tag)
+                    true
+                }
+
+                R.id.watch_later -> {
+                    val tag = "watch_later"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment(fragment ?: WatchLaterFragment(), tag)
+                    true
+                }
+
+                R.id.selections -> {
+                    val tag = "selections"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: SelectionsFragment(), tag)
+                    true
+                }
+
                 else -> return@setOnItemSelectedListener false
             }
         }
@@ -78,15 +101,10 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+    private val onBackPressedCallback: OnBackPressedCallback =
+        object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (supportFragmentManager.backStackEntryCount == 1) {
-                    exitDoubleTap()
-                } else {
-                    super.setEnabled(false)
-                    onBackPressedDispatcher.onBackPressed()
-                }
-                super.setEnabled(true)
+                exitDoubleTap()
             }
         }
 
@@ -101,5 +119,16 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val TIME_INTERVAL = 2000
+    }
+
+    private fun checkFragmentExistence(tag: String): Fragment? =
+        supportFragmentManager.findFragmentByTag(tag)
+
+    private fun changeFragment(fragment: Fragment, tag: String) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragmentPlaceholder, fragment, tag)
+            .addToBackStack(null)
+            .commit()
     }
 }

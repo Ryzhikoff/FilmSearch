@@ -12,6 +12,7 @@ import evgeniy.ryzhikov.filmsearch.databinding.FragmentFavoritesBinding
 import evgeniy.ryzhikov.filmsearch.recycler_view.Film
 import evgeniy.ryzhikov.filmsearch.recycler_view.FilmListRecyclerAdapter
 import evgeniy.ryzhikov.filmsearch.recycler_view.TopSpacingItemDecoration
+import evgeniy.ryzhikov.filmsearch.utils.AnimationHelper
 
 class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
@@ -49,6 +50,8 @@ class FavoritesFragment : Fragment() {
             }
         //Кладем нашу БД в RV
         filmsAdapter.addItems(favoritesList)
+
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.root, requireActivity(), 2)
     }
 
     override fun onDestroyView() {
