@@ -24,5 +24,6 @@ class FilmViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemV
             .into(binding.poster)
         //Устанавливаем описание
         binding.description.text = film.description
+        binding.rating.setProgress((film.rating * 10).toInt())
     }
 }
