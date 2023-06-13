@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.airbnb.lottie.LottieAnimationView
 import evgeniy.ryzhikov.filmsearch.databinding.ActivityGreetingsBinding
 
@@ -15,6 +16,9 @@ class GreetingsActivity : AppCompatActivity() {
         binding = ActivityGreetingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.greetingsLottieAnim.setOnClickListener {
+            startMainActivity()
+        }
         initAndStartGreetingsAnim()
     }
 
@@ -25,10 +29,7 @@ class GreetingsActivity : AppCompatActivity() {
             }
 
             override fun onAnimationEnd(p0: Animator) {
-                val intent = Intent(this@GreetingsActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-
+                startMainActivity()
             }
 
             override fun onAnimationCancel(p0: Animator) {
@@ -40,5 +41,11 @@ class GreetingsActivity : AppCompatActivity() {
         })
 
         lottieAnimationView.playAnimation()
+    }
+
+    private fun startMainActivity() {
+        val intent = Intent(this@GreetingsActivity, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

@@ -9,7 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
 
         android:fitsSystemWindows="true"
 
@@ -87,6 +87,7 @@
             android:shadowRadius="2"
             android:textColor="@color/black"
             android:textSize="20sp"
+
             style="@style/FontFilmDescription"
             tools:text="@tools:sample/lorem/random" />
 
