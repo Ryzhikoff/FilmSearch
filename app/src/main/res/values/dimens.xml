@@ -4,7 +4,7 @@
     <dimen name="rv_width_imageview">150dp</dimen>
     <dimen name="rv_height_item">200dp</dimen>
     <dimen name="rv_padding">8dp</dimen>
-    <dimen name="posters_margin">5dp</dimen>
+    <dimen name="posters_margin">1dp</dimen>
     <dimen name="rv_margin">@dimen/posters_margin</dimen>
     <dimen name="film_details_description_margin">8dp</dimen>
     <dimen name="film_details_fab_margin">16dp</dimen>

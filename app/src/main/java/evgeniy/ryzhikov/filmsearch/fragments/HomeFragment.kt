@@ -1,11 +1,6 @@
 package evgeniy.ryzhikov.filmsearch.fragments
 
 import android.os.Bundle
-import android.transition.Scene
-import android.transition.Slide
-import android.transition.TransitionManager
-import android.transition.TransitionSet
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import evgeniy.ryzhikov.filmsearch.MainActivity
 import evgeniy.ryzhikov.filmsearch.R
 import evgeniy.ryzhikov.filmsearch.databinding.FragmentHomeBinding
-import evgeniy.ryzhikov.filmsearch.databinding.MergeHomeScreenContentBinding
 import evgeniy.ryzhikov.filmsearch.recycler_view.Film
 import evgeniy.ryzhikov.filmsearch.recycler_view.FilmListRecyclerAdapter
 import evgeniy.ryzhikov.filmsearch.recycler_view.TopSpacingItemDecoration
+import evgeniy.ryzhikov.filmsearch.utils.AnimationHelper
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -27,33 +22,30 @@ class HomeFragment : Fragment() {
 
     private var _homeFragmentBinding: FragmentHomeBinding? = null
     private val homeFragmentBinding get() = _homeFragmentBinding!!
-    private var _mergeHomeScreeContentBinding: MergeHomeScreenContentBinding? = null
-    private val mergeHomeScreeContentBinding get() = _mergeHomeScreeContentBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _homeFragmentBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        _mergeHomeScreeContentBinding =
-            MergeHomeScreenContentBinding.inflate(layoutInflater, homeFragmentBinding.homeFragmentRoot, false)
         return homeFragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setTransition()
         super.onViewCreated(view, savedInstanceState)
         createFilmBase()
         initRV()
         initSearch()
+
+        AnimationHelper.performFragmentCircularRevealAnimation(homeFragmentBinding.root, requireActivity(), 1)
     }
 
     private fun initSearch() {
-        mergeHomeScreeContentBinding.searchView.setOnClickListener {
-            mergeHomeScreeContentBinding.searchView.isIconified = false
+        homeFragmentBinding.searchView.setOnClickListener {
+            homeFragmentBinding.searchView.isIconified = false
         }
 
-        mergeHomeScreeContentBinding.searchView.setOnQueryTextListener(object :
+        homeFragmentBinding.searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -80,7 +72,7 @@ class HomeFragment : Fragment() {
 
     private fun initRV() {
         //находим наш RV
-        mergeHomeScreeContentBinding.mainRecycler.apply {
+        homeFragmentBinding.mainRecycler.apply {
             //Инициализируем наш адаптер в конструктор передаем анонимно инициализированный интерфейс
             filmsAdapter =
                 FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
@@ -108,80 +100,58 @@ class HomeFragment : Fragment() {
             Film(
                 "Зеленая миля (1999)",
                 R.drawable.film_1,
-                "В тюрьме для смертников появляется заключенный с божественным даром. Мистическая драма по роману Стивена Кинга"
+                "В тюрьме для смертников появляется заключенный с божественным даром. Мистическая драма по роману Стивена Кинга", 7.5f
             ),
             Film(
                 "Список Шиндлера (1993)",
                 R.drawable.film_2,
-                "История немецкого промышленника, спасшего тысячи жизней во время Холокоста. Драма Стивена Спилберга"
+                "История немецкого промышленника, спасшего тысячи жизней во время Холокоста. Драма Стивена Спилберга", 6.5f
             ),
             Film(
                 "Побег из Шоушенка (1994)",
                 R.drawable.film_3,
-                "Бухгалтер Энди Дюфрейн обвинён в убийстве собственной жены и её любовника. Оказавшись в тюрьме под названием Шоушенк, он сталкивается с жестокостью и беззаконием, царящими по обе стороны решётки. Каждый, кто попадает в эти стены, становится их рабом до конца жизни. Но Энди, обладающий живым умом и доброй душой, находит подход как к заключённым, так и к охранникам, добиваясь их особого к себе расположения."
+                "Бухгалтер Энди Дюфрейн обвинён в убийстве собственной жены и её любовника. Оказавшись в тюрьме под названием Шоушенк, он сталкивается с жестокостью и беззаконием, царящими по обе стороны решётки. Каждый, кто попадает в эти стены, становится их рабом до конца жизни. Но Энди, обладающий живым умом и доброй душой, находит подход как к заключённым, так и к охранникам, добиваясь их особого к себе расположения.", 9.2f
             ),
             Film(
                 "Форрест Гамп (1994)",
                 R.drawable.film_4,
-                "Полувековая история США глазами чудака из Алабамы. Абсолютная классика Роберта Земекиса с Томом Хэнксом"
+                "Полувековая история США глазами чудака из Алабамы. Абсолютная классика Роберта Земекиса с Томом Хэнксом", 4.5f
             ),
             Film(
                 "Тайна Коко (2017)",
                 R.drawable.film_5,
-                "12-летний Мигель живёт в мексиканской деревушке в семье сапожников и тайно мечтает стать музыкантом. Тайно, потому что в его семье музыка считается проклятием. Когда-то его прапрадед оставил жену, прапрабабку Мигеля, ради мечты, которая теперь не даёт спокойно жить и его праправнуку. С тех пор музыкальная тема в семье стала табу. Мигель обнаруживает, что между ним и его любимым певцом Эрнесто де ла Крусом, ныне покойным, существует некая связь. Паренёк отправляется к своему кумиру в Страну Мёртвых, где встречает души предков. Мигель знакомится там с духом-скелетом по имени Гектор, который становится его проводником. Вдвоём они отправляются на поиски де ла Круса."
+                "12-летний Мигель живёт в мексиканской деревушке в семье сапожников и тайно мечтает стать музыкантом. Тайно, потому что в его семье музыка считается проклятием. Когда-то его прапрадед оставил жену, прапрабабку Мигеля, ради мечты, которая теперь не даёт спокойно жить и его праправнуку. С тех пор музыкальная тема в семье стала табу. Мигель обнаруживает, что между ним и его любимым певцом Эрнесто де ла Крусом, ныне покойным, существует некая связь. Паренёк отправляется к своему кумиру в Страну Мёртвых, где встречает души предков. Мигель знакомится там с духом-скелетом по имени Гектор, который становится его проводником. Вдвоём они отправляются на поиски де ла Круса.", 2.3f
             ),
             Film(
                 "Властелин колец: Возвращение короля (2003)",
                 R.drawable.film_6,
-                "Повелитель сил тьмы Саурон направляет свою бесчисленную армию под стены Минас-Тирита, крепости Последней Надежды. Он предвкушает близкую победу, но именно это мешает ему заметить две крохотные фигурки — хоббитов, приближающихся к Роковой Горе, где им предстоит уничтожить Кольцо Всевластья."
+                "Повелитель сил тьмы Саурон направляет свою бесчисленную армию под стены Минас-Тирита, крепости Последней Надежды. Он предвкушает близкую победу, но именно это мешает ему заметить две крохотные фигурки — хоббитов, приближающихся к Роковой Горе, где им предстоит уничтожить Кольцо Всевластья.", 6.2f
             ),
             Film(
                 "Интерстеллар (2014)",
                 R.drawable.film_7,
-                "Когда засуха, пыльные бури и вымирание растений приводят человечество к продовольственному кризису, коллектив исследователей и учёных отправляется сквозь червоточину (которая предположительно соединяет области пространства-времени через большое расстояние) в путешествие, чтобы превзойти прежние ограничения для космических путешествий человека и найти планету с подходящими для человечества условиями."
+                "Когда засуха, пыльные бури и вымирание растений приводят человечество к продовольственному кризису, коллектив исследователей и учёных отправляется сквозь червоточину (которая предположительно соединяет области пространства-времени через большое расстояние) в путешествие, чтобы превзойти прежние ограничения для космических путешествий человека и найти планету с подходящими для человечества условиями.", 8.1f
             ),
             Film(
                 "Криминальное чтиво (1994)",
                 R.drawable.film_8,
-                "Несколько связанных историй из жизни бандитов. Шедевр Квентина Тарантино, который изменил мировое кино"
+                "Несколько связанных историй из жизни бандитов. Шедевр Квентина Тарантино, который изменил мировое кино", 4.5f
             ),
             Film(
                 "Бойцовский клуб (1999)",
                 R.drawable.film_9,
-                "Страховой работник разрушает рутину своей благополучной жизни. Культовая драма по книге Чака Паланика"
+                "Страховой работник разрушает рутину своей благополучной жизни. Культовая драма по книге Чака Паланика", 1.2f
             ),
             Film(
                 "Властелин колец: Братство Кольца (2001)",
                 R.drawable.film_10,
-                "Сказания о Средиземье — это хроника Великой войны за Кольцо, длившейся не одну тысячу лет. Тот, кто владел Кольцом, получал неограниченную власть, но был обязан служить злу."
+                "Сказания о Средиземье — это хроника Великой войны за Кольцо, длившейся не одну тысячу лет. Тот, кто владел Кольцом, получал неограниченную власть, но был обязан служить злу.", 7.9f
             ),
         )
     }
 
-    private fun setTransition() {
-        val scene = Scene(
-            homeFragmentBinding.homeFragmentRoot,
-            mergeHomeScreeContentBinding.root,
-        )
-        //Создаем анимацию выезда поля поиска сверху
-        val searchSlide = Slide(Gravity.TOP).addTarget(R.id.searchView)
-        //Создаем анимацию выезда RV снизу
-        val recyclerSlide = Slide(Gravity.BOTTOM).addTarget(R.id.mainRecycler)
-        //Создаем экземпляр TransitionSet, который объединит все наши анимации
-        val customTransition = TransitionSet().apply {
-            //Устанавливаем время, за которое будет проходить анимация
-            duration = 500
-            //Добавляем сами анимации
-            addTransition(recyclerSlide)
-            addTransition(searchSlide)
-        }
-        //Также запускаем через TransitionManager, но вторым параметром передаем нашу кастомную анимацию
-        TransitionManager.go(scene, customTransition)
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
-        _mergeHomeScreeContentBinding = null
         _homeFragmentBinding = null
     }
 }

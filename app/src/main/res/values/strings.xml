@@ -6,5 +6,6 @@
     <string name="main_menu_button_selection">Подборки</string>
     <string name="main_menu_link_posters">Постеры предоставлены: https://akspic.ru/</string>
     <string name="alert_double_tap_exit">Tap double for exit app</string>
+    <string name="main_menu_button_home">Домой</string>
 
 </resources>
