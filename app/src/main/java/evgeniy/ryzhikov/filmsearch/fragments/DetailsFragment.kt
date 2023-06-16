@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import evgeniy.ryzhikov.filmsearch.MainActivity
 import evgeniy.ryzhikov.filmsearch.R
 import evgeniy.ryzhikov.filmsearch.databinding.FragmentDetailsBinding
 import evgeniy.ryzhikov.filmsearch.recycler_view.Film
@@ -29,6 +30,7 @@ class DetailsFragment : Fragment() {
         getAndSetFilm()
         initFavoritesButton()
         initShareButton()
+
     }
 
     private fun getAndSetFilm() {
@@ -76,7 +78,11 @@ class DetailsFragment : Fragment() {
             //Указываем MIME тип, чтобы система знала, какое приложения предложить
             intent.type = "text/plain"
             //Запускаем наше активити
-            startActivity(Intent.createChooser(intent, "Share To:"))
+            startActivity(Intent.createChooser(intent, getString(R.string.details_share_to)))
         }
+    }
+
+    private fun navagate() {
+        //(activity as MainActivity).navController.popBackStack()
     }
 }

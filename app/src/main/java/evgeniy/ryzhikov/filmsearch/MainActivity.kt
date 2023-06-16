@@ -2,6 +2,8 @@ package evgeniy.ryzhikov.filmsearch
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
@@ -99,6 +101,7 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragmentPlaceholder, fragment)
             .addToBackStack(null)
             .commit()
+
     }
 
     private val onBackPressedCallback: OnBackPressedCallback =
@@ -109,12 +112,16 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun exitDoubleTap() {
-        if (backPressed + TIME_INTERVAL > System.currentTimeMillis()) {
-            finish()
+        if (supportFragmentManager.fragments.count() > 1) {
+            supportFragmentManager.popBackStack()
         } else {
-            makeSnakebar(getString(R.string.alert_double_tap_exit))
+            if (backPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+                finish()
+            } else {
+                makeSnakebar(getString(R.string.alert_double_tap_exit))
+            }
+            backPressed = System.currentTimeMillis()
         }
-        backPressed = System.currentTimeMillis()
     }
 
     companion object {

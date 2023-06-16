@@ -39,13 +39,14 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/film_1" />
 
-            <TextView
+            <com.lb.auto_fit_textview.AutoResizeTextView
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/rv_padding"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                android:maxLines="2"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 app:layout_constraintLeft_toRightOf="@+id/poster"
                 app:layout_constraintRight_toRightOf="parent"
@@ -60,6 +61,7 @@
                 android:maxLines="5"
                 android:minLines="1"
                 android:padding="@dimen/rv_padding"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/poster"
                 app:layout_constraintRight_toRightOf="parent"
