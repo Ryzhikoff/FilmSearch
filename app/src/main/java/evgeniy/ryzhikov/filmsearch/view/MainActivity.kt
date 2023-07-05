@@ -1,19 +1,18 @@
-package evgeniy.ryzhikov.filmsearch
+package evgeniy.ryzhikov.filmsearch.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.transition.AutoTransition
-import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import evgeniy.ryzhikov.filmsearch.R
 import evgeniy.ryzhikov.filmsearch.databinding.ActivityMainBinding
-import evgeniy.ryzhikov.filmsearch.fragments.DetailsFragment
-import evgeniy.ryzhikov.filmsearch.fragments.FavoritesFragment
-import evgeniy.ryzhikov.filmsearch.fragments.HomeFragment
-import evgeniy.ryzhikov.filmsearch.fragments.SelectionsFragment
-import evgeniy.ryzhikov.filmsearch.fragments.WatchLaterFragment
-import evgeniy.ryzhikov.filmsearch.recycler_view.Film
+import evgeniy.ryzhikov.filmsearch.view.fragments.DetailsFragment
+import evgeniy.ryzhikov.filmsearch.view.fragments.FavoritesFragment
+import evgeniy.ryzhikov.filmsearch.view.fragments.HomeFragment
+import evgeniy.ryzhikov.filmsearch.view.fragments.SelectionsFragment
+import evgeniy.ryzhikov.filmsearch.view.fragments.WatchLaterFragment
+import evgeniy.ryzhikov.filmsearch.domain.Film
 
 class MainActivity : AppCompatActivity() {
 

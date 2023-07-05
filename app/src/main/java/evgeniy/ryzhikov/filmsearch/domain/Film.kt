@@ -1,4 +1,4 @@
-package evgeniy.ryzhikov.filmsearch.recycler_view
+package evgeniy.ryzhikov.filmsearch.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

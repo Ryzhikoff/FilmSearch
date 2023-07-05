@@ -1,4 +1,4 @@
-package evgeniy.ryzhikov.filmsearch.recycler_view
+package evgeniy.ryzhikov.filmsearch.view.rv_adapters
 
 import android.content.res.Resources
 import android.graphics.Rect

@@ -8,7 +8,7 @@
     android:id="@+id/fragmentFavorites"
     tools:visibility="visible"
     android:background="@drawable/background_fragment_favorite"
-    tools:context=".fragments.FavoritesFragment">
+    tools:context=".view.fragments.FavoritesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favoritesRV"
