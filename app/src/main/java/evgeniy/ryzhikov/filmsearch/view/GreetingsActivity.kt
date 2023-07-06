@@ -1,10 +1,9 @@
-package evgeniy.ryzhikov.filmsearch
+package evgeniy.ryzhikov.filmsearch.view
 
 import android.animation.Animator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import com.airbnb.lottie.LottieAnimationView
 import evgeniy.ryzhikov.filmsearch.databinding.ActivityGreetingsBinding
 

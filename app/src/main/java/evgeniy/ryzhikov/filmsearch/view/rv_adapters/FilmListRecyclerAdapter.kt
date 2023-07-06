@@ -1,10 +1,11 @@
-package evgeniy.ryzhikov.filmsearch.recycler_view
+package evgeniy.ryzhikov.filmsearch.view.rv_adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import evgeniy.ryzhikov.filmsearch.R
-import evgeniy.ryzhikov.filmsearch.databinding.FilmItemBinding
+import evgeniy.ryzhikov.filmsearch.domain.Film
+import evgeniy.ryzhikov.filmsearch.view.rv_viewholders.FilmViewHolder
 
 //в параметр передаем слушатель, чтобы мы потом могли обрабатывать нажатия из класса Activity
 class FilmListRecyclerAdapter(private val clickListener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

@@ -1,4 +1,4 @@
-package evgeniy.ryzhikov.filmsearch.fragments
+package evgeniy.ryzhikov.filmsearch.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import evgeniy.ryzhikov.filmsearch.MainActivity
 import evgeniy.ryzhikov.filmsearch.R
 import evgeniy.ryzhikov.filmsearch.databinding.FragmentDetailsBinding
-import evgeniy.ryzhikov.filmsearch.recycler_view.Film
+import evgeniy.ryzhikov.filmsearch.domain.Film
 
 class DetailsFragment : Fragment() {
     lateinit var binding: FragmentDetailsBinding
@@ -82,7 +81,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun navagate() {
+    private fun navigate() {
         //(activity as MainActivity).navController.popBackStack()
     }
 }

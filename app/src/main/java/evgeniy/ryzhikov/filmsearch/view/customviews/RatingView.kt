@@ -1,4 +1,4 @@
-package evgeniy.ryzhikov.filmsearch.view
+package evgeniy.ryzhikov.filmsearch.view.customviews
 
 import android.content.Context
 import android.graphics.Canvas

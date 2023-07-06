@@ -1,4 +1,4 @@
-package evgeniy.ryzhikov.filmsearch.fragments
+package evgeniy.ryzhikov.filmsearch.view.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import evgeniy.ryzhikov.filmsearch.MainActivity
+import evgeniy.ryzhikov.filmsearch.view.MainActivity
 import evgeniy.ryzhikov.filmsearch.R
 import evgeniy.ryzhikov.filmsearch.databinding.FragmentFavoritesBinding
-import evgeniy.ryzhikov.filmsearch.recycler_view.Film
-import evgeniy.ryzhikov.filmsearch.recycler_view.FilmListRecyclerAdapter
-import evgeniy.ryzhikov.filmsearch.recycler_view.TopSpacingItemDecoration
+import evgeniy.ryzhikov.filmsearch.domain.Film
+import evgeniy.ryzhikov.filmsearch.view.rv_adapters.FilmListRecyclerAdapter
+import evgeniy.ryzhikov.filmsearch.view.rv_adapters.TopSpacingItemDecoration
 import evgeniy.ryzhikov.filmsearch.utils.AnimationHelper
 
 class FavoritesFragment : Fragment() {

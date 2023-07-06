@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp">
 
-    <evgeniy.ryzhikov.filmsearch.view.RatingView
+    <evgeniy.ryzhikov.filmsearch.view.customviews.RatingView
         android:id="@+id/rating"
         android:layout_width="50dp"
         android:layout_height="50dp"
