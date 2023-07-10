@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import evgeniy.ryzhikov.filmsearch.R
+import evgeniy.ryzhikov.filmsearch.data.ApiConstants
 import evgeniy.ryzhikov.filmsearch.databinding.FragmentDetailsBinding
 import evgeniy.ryzhikov.filmsearch.domain.Film
 
@@ -38,7 +40,10 @@ class DetailsFragment : Fragment() {
         //Устанавливаем заголовок
         binding.detailsToolbar.title = film.title
         //Устанавливаем картинку
-        binding.detailsPoster.setImageResource(film.poster)
+        Glide.with(this)
+            .load(ApiConstants.IMAGE_URL + "w780" + film.poster)
+            .centerCrop()
+            .into(binding.detailsPoster)
         //Устанавливаем описание
         binding.detailsDescription.text = film.description
     }
