@@ -11,6 +11,8 @@ import evgeniy.ryzhikov.filmsearch.R
 import evgeniy.ryzhikov.filmsearch.data.ApiConstants
 import evgeniy.ryzhikov.filmsearch.databinding.FragmentDetailsBinding
 import evgeniy.ryzhikov.filmsearch.domain.Film
+import evgeniy.ryzhikov.filmsearch.utils.FilmCircularProgressDrawable
+import evgeniy.ryzhikov.filmsearch.utils.FilmCircularProgressDrawable.Location
 
 class DetailsFragment : Fragment() {
     lateinit var binding: FragmentDetailsBinding
@@ -39,10 +41,15 @@ class DetailsFragment : Fragment() {
         film = arguments?.get("film") as Film
         //Устанавливаем заголовок
         binding.detailsToolbar.title = film.title
+
+        val circularProgressDrawable = FilmCircularProgressDrawable(requireContext(), Location.DETAIL_FRAGMENT)
+        circularProgressDrawable.start()
+
         //Устанавливаем картинку
         Glide.with(this)
-            .load(ApiConstants.IMAGE_URL + "w780" + film.poster)
+            .load(ApiConstants.IMAGE_URL + ApiConstants.SIZE_IMAGE_DETAILS_FILM + film.poster)
             .centerCrop()
+            .placeholder(circularProgressDrawable)
             .into(binding.detailsPoster)
         //Устанавливаем описание
         binding.detailsDescription.text = film.description
