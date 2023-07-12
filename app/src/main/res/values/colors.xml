@@ -18,5 +18,10 @@
     <color name="end_color_background_night">@color/white</color>
     <color name="color_invisible">#00000000</color>
 
+    <color name="cpb_1">#0FB6FF</color>
+    <color name="cpb_2">#FFF309</color>
+    <color name="cpb_3">#46ED0A</color>
+    <color name="cpb_4">#7B0BE8</color>
+
 
 </resources>
