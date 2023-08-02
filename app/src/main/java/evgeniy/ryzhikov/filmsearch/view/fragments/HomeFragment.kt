@@ -56,7 +56,10 @@ class HomeFragment : Fragment() {
 
         viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
             filmsDataBase = it
+            filmsAdapter.addItems(it)
         })
+
+        initPullToRefresh()
     }
 
     private fun initSearch() {
@@ -111,6 +114,18 @@ class HomeFragment : Fragment() {
         }
         //Кладем нашу БД в RV
         filmsAdapter.addItems(filmsDataBase)
+    }
+
+    private fun initPullToRefresh() {
+        //Вешаем слушатель, чтобы вызвался pull to refresh
+        homeFragmentBinding.pullToRefresh.setOnRefreshListener {
+            //Чистим адаптер(items нужно будет сделать паблик или создать для этого публичный метод)
+            filmsAdapter.clear()
+            //Делаем новый запрос фильмов на сервер
+            viewModel.getFilms()
+            //Убираем крутящееся колечко
+            homeFragmentBinding.pullToRefresh.isRefreshing = false
+        }
     }
 
     override fun onDestroyView() {

@@ -8,5 +8,12 @@
     <string name="alert_double_tap_exit">Tap double for exit app</string>
     <string name="main_menu_button_home">Домой</string>
     <string name="details_share_to">Поделиться</string>
+    <string name="main_menu_button_settings">Настройки</string>
+
+    <string name="radio_button_popular">Популярные</string>
+    <string name="radio_button_top_rated">Топ</string>
+    <string name="radio_button_upcoming">Скоро</string>
+    <string name="radio_button_playing">В кинотеатрах</string>
+    <string name="radio_group_header">Подборка на главном экране:</string>
 
 </resources>

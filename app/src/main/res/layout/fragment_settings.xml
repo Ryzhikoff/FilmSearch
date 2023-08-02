@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/settings_fragment_root"
+    tools:context=".view.fragments.SettingsFragment">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@android:color/black"
+            android:layout_margin="@dimen/settings_margin_header"
+            android:text="@string/radio_group_header"/>
+
+        <RadioButton
+            android:id="@+id/radioPopular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/SettingsRadioButton"
+            android:text="@string/radio_button_popular"/>
+        <RadioButton
+            android:id="@+id/radioTopRated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/SettingsRadioButton"
+            android:text="@string/radio_button_top_rated"/>
+        <RadioButton
+            android:id="@+id/radioUpcoming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/SettingsRadioButton"
+            android:text="@string/radio_button_upcoming"/>
+        <RadioButton
+            android:id="@+id/radioNowPlaying"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/SettingsRadioButton"
+            android:text="@string/radio_button_playing"/>
+    </RadioGroup>
+</FrameLayout>

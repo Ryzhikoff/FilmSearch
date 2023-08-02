@@ -33,5 +33,10 @@
 
     </style>
 
+    <style name="SettingsRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_marginStart">@dimen/settings_margin_radio_button</item>
+        <item name="android:layout_marginEnd">@dimen/settings_margin_radio_button</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 
 </resources>

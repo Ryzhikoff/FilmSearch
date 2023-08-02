@@ -13,4 +13,6 @@
     <dimen name="elevation_appbar">0dp</dimen>
     <dimen name="background_search_view_width">1dp</dimen>
     <dimen name="background_search_view_radius">15dp</dimen>
+    <dimen name="settings_margin_header">8dp</dimen>
+    <dimen name="settings_margin_radio_button">16dp</dimen>
 </resources>

@@ -47,6 +47,9 @@ class FilmListRecyclerAdapter(private val clickListener: OnItemClickListener) : 
         notifyDataSetChanged()
     }
 
+    fun clear() {
+        items.clear()
+    }
 
     //Интерфейс для обработки кликов
     interface OnItemClickListener {

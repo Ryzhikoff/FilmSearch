@@ -13,6 +13,7 @@ import evgeniy.ryzhikov.filmsearch.view.fragments.HomeFragment
 import evgeniy.ryzhikov.filmsearch.view.fragments.SelectionsFragment
 import evgeniy.ryzhikov.filmsearch.view.fragments.WatchLaterFragment
 import evgeniy.ryzhikov.filmsearch.domain.Film
+import evgeniy.ryzhikov.filmsearch.view.fragments.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -60,6 +61,13 @@ class MainActivity : AppCompatActivity() {
                     val tag = "selections"
                     val fragment = checkFragmentExistence(tag)
                     changeFragment( fragment?: SelectionsFragment(), tag)
+                    true
+                }
+
+                R.id.settings -> {
+                    val tag = "settings"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment(fragment?: SettingsFragment(), tag)
                     true
                 }
 
