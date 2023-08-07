@@ -7,7 +7,6 @@ import evgeniy.ryzhikov.filmsearch.data.PreferenceProvider
 import evgeniy.ryzhikov.filmsearch.data.TmdbApi
 import evgeniy.ryzhikov.filmsearch.data.entity.TmdbResultsDto
 import evgeniy.ryzhikov.filmsearch.utils.Converter
-import evgeniy.ryzhikov.filmsearch.viewmodel.HomeFragmentViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,14 +16,20 @@ class Interactor(private val repository: MainRepository, private val retrofitSer
 
     //В коструктор передаем коллбек из вью модели, что бы реагировать на то, когда фильмы будут получены
     //И номер страницы для Пагинации
-    fun getFilmFromApi(page: Int, callback: HomeFragmentViewModel.ApiCallBack) {
+    fun getFilmFromApi(page: Int, callback: ApiCallBack) {
         retrofitService.getFilms(getDefaultCategoryFromPreference(), API.KEY, "ru-RU", page).enqueue(object : Callback<TmdbResultsDto>{
             override fun onResponse(
                 call: Call<TmdbResultsDto>,
                 response: Response<TmdbResultsDto>
             ) {
                 //при успехе вызываем метод передаем onSuccess и в этот коллбэк список фильмов
-                callback.onSuccess(Converter.convertApiListToDtoList(response.body()?.tmdbFilms))
+                val list = Converter.convertApiListToDtoList(response.body()?.tmdbFilms)
+                //кладем фильмы в БД
+                list.forEach {
+                    repository.putToDb(film = it)
+                }
+
+                callback.onSuccess(list)
             }
 
             override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {
@@ -40,4 +45,14 @@ class Interactor(private val repository: MainRepository, private val retrofitSer
     }
 
     fun getDefaultCategoryFromPreference() = preference.getDefaultCategory()
+
+    fun getFilmsFromDB() : List<Film> = repository.getAllFromDb()
+
+    fun getFavoriteFilmsFromDB() : List<Film> = repository.getFavoritesFilms()
+
+    fun changeFavoriteStatus(film: Film, value: Boolean) {
+        repository.changeFavoriteStatus(film, value)
+    }
+
+    fun isFavorite (film: Film) = repository.isFavorite(film)
 }

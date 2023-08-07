@@ -3,6 +3,7 @@ package evgeniy.ryzhikov.filmsearch.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import evgeniy.ryzhikov.filmsearch.App
+import evgeniy.ryzhikov.filmsearch.domain.ApiCallBack
 import evgeniy.ryzhikov.filmsearch.domain.Film
 import evgeniy.ryzhikov.filmsearch.domain.Interactor
 import javax.inject.Inject
@@ -25,15 +26,11 @@ class HomeFragmentViewModel : ViewModel() {
             }
 
             override fun onFailure() {
+                filmsListLiveData.postValue(interactor.getFilmsFromDB())
             }
 
         })
 
-    }
-
-    interface ApiCallBack {
-        fun onSuccess(films: List<Film>)
-        fun onFailure()
     }
 
 

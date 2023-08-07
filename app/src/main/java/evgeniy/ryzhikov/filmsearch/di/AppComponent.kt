@@ -4,6 +4,8 @@ import dagger.Component
 import evgeniy.ryzhikov.filmsearch.di.modules.DatabaseModule
 import evgeniy.ryzhikov.filmsearch.di.modules.DomainModule
 import evgeniy.ryzhikov.filmsearch.di.modules.RemoteModule
+import evgeniy.ryzhikov.filmsearch.viewmodel.DetailsFragmentViewModel
+import evgeniy.ryzhikov.filmsearch.viewmodel.FavoritesFragmentViewModel
 import evgeniy.ryzhikov.filmsearch.viewmodel.HomeFragmentViewModel
 import evgeniy.ryzhikov.filmsearch.viewmodel.SettingsFragmentViewModel
 import javax.inject.Singleton
@@ -22,4 +24,8 @@ interface AppComponent {
     fun inject(homeFragmentViewModel: HomeFragmentViewModel)
 
     fun inject(settingsFragmentViewModel: SettingsFragmentViewModel)
+
+    fun inject(favoritesFragmentViewModel: FavoritesFragmentViewModel)
+
+    fun inject(detailsFragmentViewModel: DetailsFragmentViewModel)
 }

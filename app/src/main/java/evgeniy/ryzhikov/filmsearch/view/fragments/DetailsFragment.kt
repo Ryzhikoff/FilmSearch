@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import evgeniy.ryzhikov.filmsearch.R
 import evgeniy.ryzhikov.filmsearch.data.ApiConstants
@@ -13,10 +14,15 @@ import evgeniy.ryzhikov.filmsearch.databinding.FragmentDetailsBinding
 import evgeniy.ryzhikov.filmsearch.domain.Film
 import evgeniy.ryzhikov.filmsearch.utils.FilmCircularProgressDrawable
 import evgeniy.ryzhikov.filmsearch.utils.FilmCircularProgressDrawable.Location
+import evgeniy.ryzhikov.filmsearch.viewmodel.DetailsFragmentViewModel
 
 class DetailsFragment : Fragment() {
     lateinit var binding: FragmentDetailsBinding
     lateinit var film: Film
+
+    private val viewModel by lazy {
+        ViewModelProvider.NewInstanceFactory().create(DetailsFragmentViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +62,7 @@ class DetailsFragment : Fragment() {
     }
 
     private fun initFavoritesButton() {
+        film.isInFavorites = viewModel.isFavorite(film)
         binding.fabFavorites.setImageResource(
             if (film.isInFavorites) {
                 R.drawable.ic_baseline_favorite_24
@@ -68,9 +75,11 @@ class DetailsFragment : Fragment() {
             if (!film.isInFavorites) {
                 binding.fabFavorites.setImageResource(R.drawable.ic_baseline_favorite_24)
                 film.isInFavorites = true
+                viewModel.addToFavorite(film)
             } else {
                 binding.fabFavorites.setImageResource(R.drawable.ic_baseline_favorite_border_24)
                 film.isInFavorites = false
+                viewModel.removeFromFavorite(film)
             }
         }
     }
