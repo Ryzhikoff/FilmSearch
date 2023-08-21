@@ -5,6 +5,7 @@ import evgeniy.ryzhikov.filmsearch.data.API
 import evgeniy.ryzhikov.filmsearch.data.MainRepository
 import evgeniy.ryzhikov.filmsearch.data.PreferenceProvider
 import evgeniy.ryzhikov.filmsearch.data.TmdbApi
+import evgeniy.ryzhikov.filmsearch.data.entity.Film
 import evgeniy.ryzhikov.filmsearch.data.entity.TmdbResultsDto
 import evgeniy.ryzhikov.filmsearch.utils.Converter
 import evgeniy.ryzhikov.filmsearch.viewmodel.HomeFragmentViewModel
@@ -24,7 +25,9 @@ class Interactor(private val repository: MainRepository, private val retrofitSer
                 response: Response<TmdbResultsDto>
             ) {
                 //при успехе вызываем метод передаем onSuccess и в этот коллбэк список фильмов
-                callback.onSuccess(Converter.convertApiListToDtoList(response.body()?.tmdbFilms))
+                val list = Converter.convertApiListToDtoList(response.body()?.tmdbFilms)
+                repository.putToDB(list)
+                callback.onSuccess(list)
             }
 
             override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {
@@ -35,6 +38,9 @@ class Interactor(private val repository: MainRepository, private val retrofitSer
         })
     }
 
+    fun getFilmFromDB() : List<Film> {
+        return repository.getAllFromDB()
+    }
     fun saveDefaultCategoryToPreference(category: String) {
         preference.saveDefaultCategory(category)
     }

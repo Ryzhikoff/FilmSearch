@@ -1,7 +1,7 @@
 package evgeniy.ryzhikov.filmsearch.utils
 
 import evgeniy.ryzhikov.filmsearch.data.entity.TmdbFilm
-import evgeniy.ryzhikov.filmsearch.domain.Film
+import evgeniy.ryzhikov.filmsearch.data.entity.Film
 
 object Converter {
     fun convertApiListToDtoList(list: List<TmdbFilm>?) : List<Film> {

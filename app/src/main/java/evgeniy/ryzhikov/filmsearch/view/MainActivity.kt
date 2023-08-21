@@ -12,7 +12,7 @@ import evgeniy.ryzhikov.filmsearch.view.fragments.FavoritesFragment
 import evgeniy.ryzhikov.filmsearch.view.fragments.HomeFragment
 import evgeniy.ryzhikov.filmsearch.view.fragments.SelectionsFragment
 import evgeniy.ryzhikov.filmsearch.view.fragments.WatchLaterFragment
-import evgeniy.ryzhikov.filmsearch.domain.Film
+import evgeniy.ryzhikov.filmsearch.data.entity.Film
 import evgeniy.ryzhikov.filmsearch.view.fragments.SettingsFragment
 
 class MainActivity : AppCompatActivity() {

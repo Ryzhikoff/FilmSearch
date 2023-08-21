@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import evgeniy.ryzhikov.filmsearch.R
 import evgeniy.ryzhikov.filmsearch.data.ApiConstants
 import evgeniy.ryzhikov.filmsearch.databinding.FragmentDetailsBinding
-import evgeniy.ryzhikov.filmsearch.domain.Film
+import evgeniy.ryzhikov.filmsearch.data.entity.Film
 import evgeniy.ryzhikov.filmsearch.utils.FilmCircularProgressDrawable
 import evgeniy.ryzhikov.filmsearch.utils.FilmCircularProgressDrawable.Location
 
