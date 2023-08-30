@@ -1,6 +1,7 @@
 package evgeniy.ryzhikov.filmsearch.domain
 
 
+import androidx.lifecycle.LiveData
 import evgeniy.ryzhikov.filmsearch.data.API
 import evgeniy.ryzhikov.filmsearch.data.MainRepository
 import evgeniy.ryzhikov.filmsearch.data.PreferenceProvider
@@ -27,7 +28,7 @@ class Interactor(private val repository: MainRepository, private val retrofitSer
                 //при успехе вызываем метод передаем onSuccess и в этот коллбэк список фильмов
                 val list = Converter.convertApiListToDtoList(response.body()?.tmdbFilms)
                 repository.putToDB(list)
-                callback.onSuccess(list)
+                callback.onSuccess()
             }
 
             override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {
@@ -38,7 +39,7 @@ class Interactor(private val repository: MainRepository, private val retrofitSer
         })
     }
 
-    fun getFilmFromDB() : List<Film> {
+    fun getFilmFromDB() : LiveData<List<Film>> {
         return repository.getAllFromDB()
     }
     fun saveDefaultCategoryToPreference(category: String) {
