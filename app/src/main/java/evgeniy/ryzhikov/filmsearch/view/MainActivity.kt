@@ -60,14 +60,14 @@ class MainActivity : AppCompatActivity() {
                 R.id.selections -> {
                     val tag = "selections"
                     val fragment = checkFragmentExistence(tag)
-                    changeFragment( fragment?: SelectionsFragment(), tag)
+                    changeFragment(fragment ?: SelectionsFragment(), tag)
                     true
                 }
 
                 R.id.settings -> {
                     val tag = "settings"
                     val fragment = checkFragmentExistence(tag)
-                    changeFragment(fragment?: SettingsFragment(), tag)
+                    changeFragment(fragment ?: SettingsFragment(), tag)
                     true
                 }
 
@@ -106,7 +106,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentPlaceholder, fragment)
-            .addToBackStack(null)
             .commit()
 
     }
@@ -119,16 +118,13 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun exitDoubleTap() {
-        if (supportFragmentManager.fragments.count() > 1) {
-            supportFragmentManager.popBackStack()
+        if (backPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+            finish()
         } else {
-            if (backPressed + TIME_INTERVAL > System.currentTimeMillis()) {
-                finish()
-            } else {
-                makeSnakebar(getString(R.string.alert_double_tap_exit))
-            }
-            backPressed = System.currentTimeMillis()
+            makeSnakebar(getString(R.string.alert_double_tap_exit))
         }
+        backPressed = System.currentTimeMillis()
+
     }
 
     companion object {
@@ -142,7 +138,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentPlaceholder, fragment, tag)
-            .addToBackStack(null)
             .commit()
     }
 }

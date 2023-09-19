@@ -1,39 +1,29 @@
 package evgeniy.ryzhikov.filmsearch.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import evgeniy.ryzhikov.filmsearch.App
 import evgeniy.ryzhikov.filmsearch.data.entity.Film
 import evgeniy.ryzhikov.filmsearch.domain.Interactor
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class HomeFragmentViewModel : ViewModel() {
     @Inject
     lateinit var interactor : Interactor
-    val filmsListLiveData : LiveData<List<Film>>
-    val showProgressBar: MutableLiveData<Boolean> = MutableLiveData()
+    val filmsListData : Flow<List<Film>>
+    val showProgressBar: Channel<Boolean>
 
     init {
         App.instance.dagger.inject(this)
-        filmsListLiveData = interactor.getFilmFromDB()
+        showProgressBar = interactor.progressBarSate
+        filmsListData = interactor.getFilmFromDB()
         getFilms()
 
     }
 
     fun getFilms() {
-        showProgressBar.postValue(true)
-        interactor.getFilmFromApi(1, object : ApiCallBack {
-            override fun onSuccess() {
-                showProgressBar.postValue(false)
-            }
-
-            override fun onFailure() {
-                showProgressBar.postValue(false)
-            }
-
-        })
-
+        interactor.getFilmFromApi(1)
     }
 
     interface ApiCallBack {
