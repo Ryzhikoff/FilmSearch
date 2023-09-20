@@ -16,12 +16,11 @@ import evgeniy.ryzhikov.filmsearch.data.entity.Film
 import evgeniy.ryzhikov.filmsearch.view.rv_adapters.FilmListRecyclerAdapter
 import evgeniy.ryzhikov.filmsearch.view.rv_adapters.TopSpacingItemDecoration
 import evgeniy.ryzhikov.filmsearch.utils.AnimationHelper
+import evgeniy.ryzhikov.filmsearch.utils.AutoDisposable
+import evgeniy.ryzhikov.filmsearch.utils.addTo
 import evgeniy.ryzhikov.filmsearch.viewmodel.HomeFragmentViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -34,7 +33,7 @@ class HomeFragment : Fragment() {
         ViewModelProvider.NewInstanceFactory().create(HomeFragmentViewModel::class.java)
     }
 
-    private lateinit var scope: CoroutineScope
+    private val autoDisposable = AutoDisposable()
 
     private var filmsDataBase = listOf<Film>()
         //Используем backing field
@@ -51,6 +50,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _homeFragmentBinding = FragmentHomeBinding.inflate(inflater, container, false)
+
         return homeFragmentBinding.root
     }
 
@@ -61,23 +61,25 @@ class HomeFragment : Fragment() {
 
         AnimationHelper.performFragmentCircularRevealAnimation(homeFragmentBinding.root, requireActivity(), 1)
 
-        scope = CoroutineScope(Dispatchers.IO).also { scope ->
-            scope.launch {
-                viewModel.filmsListData.collect{ films ->
-                    withContext(Dispatchers.Main) {
-                        filmsAdapter.addItems(films)
-                        filmsDataBase = films
-                    }
-                }
+        autoDisposable.bindTo(lifecycle)
+
+        viewModel.filmsListData
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {list->
+                filmsAdapter.addItems(list)
+                filmsDataBase = list
             }
-            scope.launch {
-                for (element in viewModel.showProgressBar) {
-                    launch(Dispatchers.Main) {
-                        homeFragmentBinding.progressBar.isVisible = element
-                    }
-                }
+            .addTo(autoDisposable)
+
+        viewModel.showProgressBar
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                homeFragmentBinding.progressBar.isVisible = it
             }
-        }
+            .addTo(autoDisposable)
+
 
 
         initPullToRefresh()
@@ -149,12 +151,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        scope.cancel()
-    }
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _homeFragmentBinding = null
     }
 }

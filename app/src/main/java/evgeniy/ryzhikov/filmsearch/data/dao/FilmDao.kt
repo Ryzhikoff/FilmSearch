@@ -5,13 +5,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import evgeniy.ryzhikov.filmsearch.data.entity.Film
-import kotlinx.coroutines.flow.Flow
+import io.reactivex.rxjava3.core.Observable
 
 @Dao
 interface FilmDao {
     //запрос на всю таблицу
     @Query("SELECT * FROM cashed_films")
-    fun getCashedFilms(): Flow<List<Film>>
+    fun getCashedFilms(): Observable<List<Film>>
 
     //Кладем спископ в БД, в случае конфликта - перезаписываем
     @Insert(onConflict = OnConflictStrategy.REPLACE)
