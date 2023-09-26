@@ -52,6 +52,13 @@ class Interactor(
             })
     }
 
+    fun getSearchResultFromApi(search: String): Observable<List<Film>> =
+        retrofitService.getFilmFromSearch(API.KEY, "ru-RU", search, 1)
+            .map {
+                Converter.convertApiListToDtoList(it.tmdbFilms)
+            }
+
+
     fun getFilmFromDB(): Observable<List<Film>> = repository.getAllFromDB()
 
 

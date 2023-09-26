@@ -6,6 +6,7 @@ import evgeniy.ryzhikov.filmsearch.BuildConfig
 import evgeniy.ryzhikov.filmsearch.TMDB_TIMEOUT
 import evgeniy.ryzhikov.filmsearch.data.ApiConstants
 import evgeniy.ryzhikov.filmsearch.data.TmdbApi
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -36,6 +37,8 @@ class RemoteModule {
         .baseUrl(ApiConstants.BASE_URL)
         //добавляем конвертер
         .addConverterFactory(GsonConverterFactory.create())
+            //поддержка RxJava
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .client(okHttpClient)
         .build()
 
