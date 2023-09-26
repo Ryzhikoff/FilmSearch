@@ -8,11 +8,10 @@ import evgeniy.ryzhikov.filmsearch.data.TmdbApi
 import evgeniy.ryzhikov.filmsearch.data.entity.Film
 import evgeniy.ryzhikov.filmsearch.data.entity.TmdbResultsDto
 import evgeniy.ryzhikov.filmsearch.utils.Converter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,15 +23,12 @@ class Interactor(
     private val preference: PreferenceProvider
 ) {
 
-    val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
-    var progressBarSate = Channel<Boolean>(Channel.CONFLATED)
+    var progressBarState: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     //В коструктор передаем коллбек из вью модели, что бы реагировать на то, когда фильмы будут получены
     //И номер страницы для Пагинации
     fun getFilmFromApi(page: Int) {
-        scope.launch {
-            progressBarSate.send(true)
-        }
+        progressBarState.onNext(true)
         retrofitService.getFilms(getDefaultCategoryFromPreference(), API.KEY, "ru-RU", page)
             .enqueue(object : Callback<TmdbResultsDto> {
                 override fun onResponse(
@@ -41,24 +37,23 @@ class Interactor(
                 ) {
                     //при успехе вызываем метод передаем onSuccess и в этот коллбэк список фильмов
                     val list = Converter.convertApiListToDtoList(response.body()?.tmdbFilms)
-                    scope.launch {
+                    Completable.fromSingle<List<Film>> {
                         repository.putToDB(list)
-                        progressBarSate.send(false)
                     }
+                        .subscribeOn(Schedulers.io())
+                        .subscribe()
+                    progressBarState.onNext(false)
                 }
 
                 override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {
-                    scope.launch {
-                        progressBarSate.send(false)
-                    }
+                    progressBarState.onNext(false)
                 }
 
             })
     }
 
-    fun getFilmFromDB(): Flow<List<Film>> {
-        return repository.getAllFromDB()
-    }
+    fun getFilmFromDB(): Observable<List<Film>> = repository.getAllFromDB()
+
 
     fun saveDefaultCategoryToPreference(category: String) {
         preference.saveDefaultCategory(category)
