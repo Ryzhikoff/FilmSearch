@@ -18,12 +18,12 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import evgeniy.ryzhikov.filmsearch.R
-import evgeniy.ryzhikov.filmsearch.data.ApiConstants
 import evgeniy.ryzhikov.filmsearch.databinding.FragmentDetailsBinding
 import evgeniy.ryzhikov.filmsearch.data.entity.Film
 import evgeniy.ryzhikov.filmsearch.utils.FilmCircularProgressDrawable
 import evgeniy.ryzhikov.filmsearch.utils.FilmCircularProgressDrawable.Location
 import evgeniy.ryzhikov.filmsearch.viewmodel.DetailsFragmentViewModel
+import evgeniy.ryzhikov.remote_module.entity.ApiConstants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -207,7 +207,4 @@ class DetailsFragment : Fragment() {
         return this.replace("'", "")
     }
 
-    private fun navigate() {
-        //(activity as MainActivity).navController.popBackStack()
-    }
 }

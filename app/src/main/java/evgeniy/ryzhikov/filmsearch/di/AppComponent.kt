@@ -3,16 +3,16 @@ package evgeniy.ryzhikov.filmsearch.di
 import dagger.Component
 import evgeniy.ryzhikov.filmsearch.di.modules.DatabaseModule
 import evgeniy.ryzhikov.filmsearch.di.modules.DomainModule
-import evgeniy.ryzhikov.filmsearch.di.modules.RemoteModule
 import evgeniy.ryzhikov.filmsearch.viewmodel.HomeFragmentViewModel
 import evgeniy.ryzhikov.filmsearch.viewmodel.SettingsFragmentViewModel
+import evgeniy.ryzhikov.remote_module.RemoteProvider
 import javax.inject.Singleton
 
 @Singleton
 @Component (
     //Внедряем ВСЕ модули
+    dependencies = [RemoteProvider::class],
     modules = [
-        RemoteModule::class,
         DatabaseModule::class,
         DomainModule::class
     ]

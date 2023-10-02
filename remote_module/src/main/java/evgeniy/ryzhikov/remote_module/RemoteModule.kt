@@ -1,11 +1,8 @@
-package evgeniy.ryzhikov.filmsearch.di.modules
+package evgeniy.ryzhikov.remote_module
 
 import dagger.Module
 import dagger.Provides
-import evgeniy.ryzhikov.filmsearch.BuildConfig
-import evgeniy.ryzhikov.filmsearch.TMDB_TIMEOUT
-import evgeniy.ryzhikov.filmsearch.data.ApiConstants
-import evgeniy.ryzhikov.filmsearch.data.TmdbApi
+import evgeniy.ryzhikov.remote_module.entity.ApiConstants
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,6 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+const val TMDB_TIMEOUT = 30L
 @Module
 class RemoteModule {
     @Provides
