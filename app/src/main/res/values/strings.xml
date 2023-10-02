@@ -18,5 +18,7 @@
     <string name="permission_storage">Нет разрешения. Пожалуйста, предоставьте разрешение</string>
     <string name="downloaded_to_gallery">Сохранено в галерею</string>
     <string name="open">В галерею</string>
+    <string name="search_query_is_short">Запрос должен быть не менее 3ех символов</string>
+    <string name="error_search_query">Ошибка про поиске</string>
 
 </resources>

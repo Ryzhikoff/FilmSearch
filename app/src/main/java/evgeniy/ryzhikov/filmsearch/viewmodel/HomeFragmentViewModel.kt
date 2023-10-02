@@ -26,10 +26,12 @@ class HomeFragmentViewModel : ViewModel() {
         interactor.getFilmFromApi(1)
     }
 
-    interface ApiCallBack {
-        fun onSuccess()
-        fun onFailure()
-    }
+    fun getSearchResult(search: String) = interactor.getSearchResultFromApi(search)
+
+//    interface ApiCallBack {
+//        fun onSuccess()
+//        fun onFailure()
+//    }
 
 
 }
