@@ -5,9 +5,9 @@ import evgeniy.ryzhikov.filmsearch.di.AppComponent
 import evgeniy.ryzhikov.filmsearch.di.DaggerAppComponent
 import evgeniy.ryzhikov.filmsearch.di.modules.DatabaseModule
 import evgeniy.ryzhikov.filmsearch.di.modules.DomainModule
-import evgeniy.ryzhikov.filmsearch.di.modules.RemoteModule
+import evgeniy.ryzhikov.remote_module.DaggerRemoteComponent
 
-const val TMDB_TIMEOUT = 30L
+
 class App : Application() {
     lateinit var dagger: AppComponent
 
@@ -15,9 +15,10 @@ class App : Application() {
         super.onCreate()
         //инициализируем App
         instance = this
-        //создаем компанент
+        //создаем компонент
+        val remoteProvider = DaggerRemoteComponent.create()
         dagger = DaggerAppComponent.builder()
-            .remoteModule(RemoteModule())
+            .remoteProvider(remoteProvider)
             .databaseModule(DatabaseModule())
             .domainModule(DomainModule(this))
             .build()

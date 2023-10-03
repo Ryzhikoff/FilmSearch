@@ -5,8 +5,8 @@ import dagger.Module
 import dagger.Provides
 import evgeniy.ryzhikov.filmsearch.data.MainRepository
 import evgeniy.ryzhikov.filmsearch.data.PreferenceProvider
-import evgeniy.ryzhikov.filmsearch.data.TmdbApi
 import evgeniy.ryzhikov.filmsearch.domain.Interactor
+import evgeniy.ryzhikov.remote_module.TmdbApi
 import javax.inject.Singleton
 
 @Module

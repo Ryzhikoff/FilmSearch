@@ -1,4 +1,4 @@
-package evgeniy.ryzhikov.filmsearch.data
+package evgeniy.ryzhikov.remote_module.entity
 
 object ApiConstants {
     const val BASE_URL = "https://api.themoviedb.org/"

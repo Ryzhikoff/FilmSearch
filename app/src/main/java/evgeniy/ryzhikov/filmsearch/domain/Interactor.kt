@@ -4,18 +4,13 @@ package evgeniy.ryzhikov.filmsearch.domain
 import evgeniy.ryzhikov.filmsearch.data.API
 import evgeniy.ryzhikov.filmsearch.data.MainRepository
 import evgeniy.ryzhikov.filmsearch.data.PreferenceProvider
-import evgeniy.ryzhikov.filmsearch.data.TmdbApi
 import evgeniy.ryzhikov.filmsearch.data.entity.Film
-import evgeniy.ryzhikov.filmsearch.data.entity.TmdbResultsDto
 import evgeniy.ryzhikov.filmsearch.utils.Converter
-import io.reactivex.rxjava3.core.Completable
+import evgeniy.ryzhikov.remote_module.TmdbApi
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
 
 class Interactor(
     private val repository: MainRepository,
@@ -29,27 +24,21 @@ class Interactor(
     //И номер страницы для Пагинации
     fun getFilmFromApi(page: Int) {
         progressBarState.onNext(true)
+        //Метод getDefaultCategoryFromPreferences() будет получать при каждом запросе нужный нам список фильмов
         retrofitService.getFilms(getDefaultCategoryFromPreference(), API.KEY, "ru-RU", page)
-            .enqueue(object : Callback<TmdbResultsDto> {
-                override fun onResponse(
-                    call: Call<TmdbResultsDto>,
-                    response: Response<TmdbResultsDto>
-                ) {
-                    //при успехе вызываем метод передаем onSuccess и в этот коллбэк список фильмов
-                    val list = Converter.convertApiListToDtoList(response.body()?.tmdbFilms)
-                    Completable.fromSingle<List<Film>> {
-                        repository.putToDB(list)
-                    }
-                        .subscribeOn(Schedulers.io())
-                        .subscribe()
+            .subscribeOn(Schedulers.io())
+            .map {
+                Converter.convertApiListToDtoList(it.tmdbFilms)
+            }
+            .subscribeBy(
+                onError = {
                     progressBarState.onNext(false)
-                }
-
-                override fun onFailure(call: Call<TmdbResultsDto>, t: Throwable) {
+                },
+                onNext = {
                     progressBarState.onNext(false)
+                    repository.putToDB(it)
                 }
-
-            })
+            )
     }
 
     fun getSearchResultFromApi(search: String): Observable<List<Film>> =
