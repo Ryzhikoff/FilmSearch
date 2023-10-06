@@ -1,5 +1,7 @@
 package evgeniy.ryzhikov.filmsearch.view
 
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
@@ -13,12 +15,14 @@ import evgeniy.ryzhikov.filmsearch.view.fragments.HomeFragment
 import evgeniy.ryzhikov.filmsearch.view.fragments.SelectionsFragment
 import evgeniy.ryzhikov.filmsearch.view.fragments.WatchLaterFragment
 import evgeniy.ryzhikov.filmsearch.data.entity.Film
+import evgeniy.ryzhikov.filmsearch.services.LowBatteryReceiver
 import evgeniy.ryzhikov.filmsearch.view.fragments.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var backPressed = 0L
+    private var receiver: LowBatteryReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         initNavigation()
         startFragments()
+        startLowBatteryBroadcastReceiver()
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
@@ -139,5 +144,19 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fragmentPlaceholder, fragment, tag)
             .commit()
+    }
+
+    private fun startLowBatteryBroadcastReceiver() {
+        receiver = LowBatteryReceiver()
+        val filters = IntentFilter(Intent.ACTION_POWER_CONNECTED)
+        filters.addAction(Intent.ACTION_BATTERY_LOW)
+        registerReceiver(receiver, filters)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (receiver != null) {
+            unregisterReceiver(receiver)
+        }
     }
 }
