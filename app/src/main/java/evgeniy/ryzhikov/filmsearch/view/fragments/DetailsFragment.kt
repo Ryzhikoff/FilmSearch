@@ -22,6 +22,7 @@ import evgeniy.ryzhikov.filmsearch.databinding.FragmentDetailsBinding
 import evgeniy.ryzhikov.filmsearch.data.entity.Film
 import evgeniy.ryzhikov.filmsearch.utils.FilmCircularProgressDrawable
 import evgeniy.ryzhikov.filmsearch.utils.FilmCircularProgressDrawable.Location
+import evgeniy.ryzhikov.filmsearch.view.notifications.NotificationHelper
 import evgeniy.ryzhikov.filmsearch.viewmodel.DetailsFragmentViewModel
 import evgeniy.ryzhikov.remote_module.entity.ApiConstants
 import kotlinx.coroutines.CoroutineScope
@@ -54,6 +55,10 @@ class DetailsFragment : Fragment() {
 
         binding.detailsFabDownloadWp.setOnClickListener {
             performAsyncLoadPoster()
+        }
+
+        binding.fabAddToNotification.setOnClickListener{
+            NotificationHelper.createNotification(requireContext(), film)
         }
 
     }
