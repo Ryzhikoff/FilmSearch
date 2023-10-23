@@ -20,5 +20,6 @@
     <string name="open">В галерею</string>
     <string name="search_query_is_short">Запрос должен быть не менее 3ех символов</string>
     <string name="error_search_query">Ошибка про поиске</string>
+    <string name="remember_watch">Не забудь посмотреть!</string>
 
 </resources>
