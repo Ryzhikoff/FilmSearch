@@ -58,7 +58,8 @@ class DetailsFragment : Fragment() {
         }
 
         binding.fabAddToNotification.setOnClickListener{
-            NotificationHelper.createNotification(requireContext(), film)
+//            NotificationHelper.createNotification(requireContext(), film)
+            NotificationHelper.notificationSet(requireContext(), film)
         }
 
     }
