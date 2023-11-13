@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import evgeniy.ryzhikov.filmsearch.view.MainActivity
 import evgeniy.ryzhikov.filmsearch.R
 import evgeniy.ryzhikov.filmsearch.databinding.FragmentFavoritesBinding
 import evgeniy.ryzhikov.filmsearch.data.entity.Film
 import evgeniy.ryzhikov.filmsearch.view.rv_adapters.FilmListRecyclerAdapter
 import evgeniy.ryzhikov.filmsearch.view.rv_adapters.TopSpacingItemDecoration
 import evgeniy.ryzhikov.filmsearch.utils.AnimationHelper
+import evgeniy.ryzhikov.filmsearch.view.MainActivity
 
 class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null

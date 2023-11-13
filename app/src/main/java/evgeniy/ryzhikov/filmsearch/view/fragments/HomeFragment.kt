@@ -10,7 +10,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import evgeniy.ryzhikov.filmsearch.view.MainActivity
 import evgeniy.ryzhikov.filmsearch.R
 import evgeniy.ryzhikov.filmsearch.databinding.FragmentHomeBinding
 import evgeniy.ryzhikov.filmsearch.data.entity.Film
@@ -19,6 +18,7 @@ import evgeniy.ryzhikov.filmsearch.view.rv_adapters.TopSpacingItemDecoration
 import evgeniy.ryzhikov.filmsearch.utils.AnimationHelper
 import evgeniy.ryzhikov.filmsearch.utils.AutoDisposable
 import evgeniy.ryzhikov.filmsearch.utils.addTo
+import evgeniy.ryzhikov.filmsearch.view.MainActivity
 import evgeniy.ryzhikov.filmsearch.viewmodel.HomeFragmentViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
