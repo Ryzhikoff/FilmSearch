@@ -63,9 +63,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.selections -> {
-                    val tag = "selections"
-                    val fragment = checkFragmentExistence(tag)
-                    changeFragment(fragment ?: SelectionsFragment(), tag)
+                    makeSnakebar(getString(R.string.info_pro_version))
                     true
                 }
 
