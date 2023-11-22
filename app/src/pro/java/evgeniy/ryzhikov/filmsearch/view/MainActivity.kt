@@ -3,8 +3,12 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import evgeniy.ryzhikov.filmsearch.App
 import evgeniy.ryzhikov.filmsearch.R
 import evgeniy.ryzhikov.filmsearch.databinding.ActivityMainBinding
 import evgeniy.ryzhikov.filmsearch.view.fragments.DetailsFragment
@@ -30,9 +34,49 @@ class MainActivity : AppCompatActivity() {
         initNavigation()
         startFragments()
         startLowBatteryBroadcastReceiver()
+        showPromoPoster()
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
+
+    private fun showPromoPoster() {
+        //if not show promo
+        if (!App.instance.isPromoShown) {
+            //get access to Remote Config
+            val remoteConfig = FirebaseRemoteConfig.getInstance()
+            //set settings
+            val configSettings = FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(0)
+                .build()
+            remoteConfig.setConfigSettingsAsync(configSettings)
+            //get data from server, add listener
+            remoteConfig.fetch()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        //activate config
+                        remoteConfig.activate()
+                        //get link
+                        val linkPoster = remoteConfig.getString("poster_link")
+                        if (linkPoster.isNotBlank()) {
+                            App.instance.isPromoShown = true
+                            //enable promo view
+                            binding.promoView.apply {
+                                isVisible = true
+                                animate()
+                                    .setDuration(1500)
+                                    .alpha(1f)
+                                    .start()
+                                setLinkForPoster(linkPoster)
+                                watchButton.setOnClickListener {
+                                    isVisible = false
+                                }
+                            }
+                        }
+                    }
+                }
+        }
+    }
+
 
     private fun initNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener {

@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-const val TMDB_TIMEOUT = 30L
+const val TMDB_TIMEOUT = 300L
 @Module
 class RemoteModule {
     @Provides

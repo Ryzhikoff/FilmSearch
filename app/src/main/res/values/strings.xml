@@ -22,5 +22,7 @@
     <string name="error_search_query">Ошибка про поиске</string>
     <string name="remember_watch">Не забудь посмотреть!</string>
     <string name="info_pro_version">Доступно в Pro версии</string>
+    <string name="label_watch_film">Посмотрите фильм:</string>
+    <string name="label_look">Смотреть</string>
 
 </resources>
