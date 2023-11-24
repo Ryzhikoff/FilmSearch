@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "269506613929",
+    "project_id": "filmsearch-69959",
+    "storage_bucket": "filmsearch-69959.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269506613929:android:fa8f1bd91309841f630fb8",
+        "android_client_info": {
+          "package_name": "evgeniy.ryzhikov.filmsearch.basic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsYn7U4jY5A-5iox_HztmfhZpf5sezzio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
